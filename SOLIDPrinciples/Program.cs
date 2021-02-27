@@ -54,6 +54,34 @@ namespace SOLIDPrinciples
         }
     }
 
+    public interface IPrinter
+    {
+        void Print(Document d);
+    }
+
+    public interface IScanner
+    {
+        void Scan(Document d);
+    }
+
+    public interface IFax
+    {
+        void Fax(Document d);
+    }
+
+    public class Photocopier : IPrinter, IScanner
+    {
+        public void Print(Document d)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Scan(Document d)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
