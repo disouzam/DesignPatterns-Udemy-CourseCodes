@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
 using static System.Console;
 
@@ -20,9 +17,13 @@ namespace SOLIDPrinciples
         // public DateTime DateOfBirth;
     }
 
-    // low-level
+    public interface IRelationshipBrowser
+    {
+        IEnumerable<Person> FindAllChidrenOf(string name);
+    }
 
-    public class Relationships
+    // low-level
+    public class Relationships : IRelationshipBrowser
     {
         private List<(Person, Relationship, Person)> relations 
             = new List<(Person, Relationship, Person)>();
@@ -33,19 +34,37 @@ namespace SOLIDPrinciples
             relations.Add((child, Relationship.Child, parent));
         }
 
-        public List<(Person, Relationship, Person)> Relations => relations;
+        public IEnumerable<Person> FindAllChidrenOf(string name)
+        {
+            foreach (var r in relations.Where(
+                x => x.Item1.Name == name &&
+                x.Item2 == Relationship.Parent))
+            {
+                yield return r.Item3;
+            }
+        }
+
+        //public List<(Person, Relationship, Person)> Relations => relations;
     }
 
     class Research
     {
-        public Research(Relationships relationships)
+        //public Research(Relationships relationships)
+        //{
+        //    var relations = relationships.Relations;
+        //    foreach(var r in relations.Where(
+        //        x => x.Item1.Name == "John" &&
+        //        x.Item2 == Relationship.Parent))
+        //    {
+        //        WriteLine($"John as a child called {r.Item3.Name}");
+        //    }
+        //}
+
+        public Research(IRelationshipBrowser browser)
         {
-            var relations = relationships.Relations;
-            foreach(var r in relations.Where(
-                x => x.Item1.Name == "John" &&
-                x.Item2 == Relationship.Parent))
+            foreach (var p in browser.FindAllChidrenOf("John"))
             {
-                WriteLine($"John as a child called {r.Item3.Name}");
+                WriteLine($"John as a child called {p.Name}");
             }
         }
         static void Main(string[] args)
