@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using static System.Console;
 
@@ -27,22 +28,18 @@ namespace SOLIDPrinciples
             return string.Join(Environment.NewLine, entries);
         }
 
-        public void Save(string filename)
-        {
-            File.WriteAllText(filename, ToString());
-        }
 
-        public static Journal Load(string filename)
-        {
 
-        }
-
-        public void Load (Uri uri)
-        {
-
-        }
     }
 
+    public class Persistence
+    {
+        public void SaveToFile (Journal j, string filename, bool overwrite = false)
+        {
+            if (overwrite || !File.Exists(filename))
+                File.WriteAllText(filename, j.ToString());
+        }
+    }
 
     class Program
     {
@@ -52,6 +49,11 @@ namespace SOLIDPrinciples
             j.AddEntry("I cried today");
             j.AddEntry("I ate a bug");
             WriteLine(j);
+
+            var p = new Persistence();
+            var filename = @"C:\LearningProjects_Repos\DesignPatterns\CourseCodes\Resources\journal.txt";
+            p.SaveToFile(j, filename, true);
+            Process.Start("notepad", filename);
         }
     }
 }
