@@ -26,7 +26,7 @@ namespace BuilderDesignPattern
             {
                 var sb = new StringBuilder();
                 var i = new string(' ', indentsize * indent);
-                sb.Append($"{i}<{Name}>");
+                sb.AppendLine($"{i}<{Name}>");
 
                 if (!string.IsNullOrWhiteSpace(Text))
                 {
@@ -34,12 +34,12 @@ namespace BuilderDesignPattern
                     sb.AppendLine(Text);
                 }
 
-                foreach(var e in Elements)
+                foreach (var e in Elements)
                 {
                     sb.Append(e.ToStringImpl(indent + 1));
                 }
 
-                sb.Append($"{i}</{Name}>");
+                sb.AppendLine($"{i}</{Name}>");
 
                 return sb.ToString();
             }
@@ -80,6 +80,7 @@ namespace BuilderDesignPattern
 
         static void Main(string[] args)
         {
+            WriteLine("Without using Builder pattern");
             var hello = "hello";
             var sb = new StringBuilder();
 
@@ -91,12 +92,21 @@ namespace BuilderDesignPattern
             var words = new[] { "hello", "world" };
             sb.Clear();
             sb.Append("<ul>");
-            foreach(var word in words)
+            foreach (var word in words)
             {
-                sb.AppendFormat("<li>{0}</li>", word);            
+                sb.AppendFormat("<li>{0}</li>", word);
             }
             sb.Append("</ul>");
             WriteLine(sb);
+
+            WriteLine("");
+            WriteLine("");
+            WriteLine("Using Builder pattern");
+
+            var builder = new HtmlBuilder("ul");
+            builder.AddChild("li", "hello");
+            builder.AddChild("li", "world");
+            WriteLine(builder.ToString());
         }
     }
 }
