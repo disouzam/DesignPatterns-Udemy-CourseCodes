@@ -9,10 +9,19 @@ namespace BuilderDesignPattern
         public class Person
         {
             public string Name;
+
             public string Position;
+
+            public class Builder: PersonJobBuilder<Builder>
+            {
+
+            }
+
+            public static Builder New => new Builder();
+
             public override string ToString()
             {
-                return $"{nameof(Name)}: {Name},{nameof(Position)}: {Position}";
+                return $"{nameof(Name)}: {Name}, {nameof(Position)}: {Position}";
             }
         }
 
@@ -27,7 +36,8 @@ namespace BuilderDesignPattern
 
         }
 
-        public class PersonInfoBuilder<SELF> : PersonBuilder
+        public class PersonInfoBuilder<SELF> : 
+            PersonBuilder
             where SELF : PersonInfoBuilder<SELF>
         {
             public SELF Called(string name)
@@ -50,9 +60,11 @@ namespace BuilderDesignPattern
 
         static void Main(string[] args)
         {
-            var builder = new PersonJobBuilder();
-            builder.Called("Dickson")
-                .WorkAsA
+
+            WriteLine(Person.New
+                .Called("Dickson")
+                .WorkAsA("software developer")
+                .Build());
         }
     }
 }
