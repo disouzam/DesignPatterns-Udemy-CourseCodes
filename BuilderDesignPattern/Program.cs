@@ -26,26 +26,28 @@ namespace BuilderDesignPattern
             }
 
         }
-        public class PersonInfoBuilder<SELF>: PersonBuilder
+
+        public class PersonInfoBuilder<SELF> : PersonBuilder
             where SELF : PersonInfoBuilder<SELF>
         {
             public SELF Called(string name)
             {
                 person.Name = name;
-                return (SELF) this;
-            } 
-        } 
+                return (SELF)this;
+            }
+        }
 
-        public class PersonJobBuilder<SELF>: 
+        public class PersonJobBuilder<SELF> :
             PersonInfoBuilder<PersonJobBuilder<SELF>>
-            where SELF: PersonJobBuilder<SELF>
+            where SELF : PersonJobBuilder<SELF>
         {
             public SELF WorkAsA(string position)
             {
                 person.Position = position;
-                return (SELF) this;
+                return (SELF)this;
             }
         }
+
         static void Main(string[] args)
         {
             var builder = new PersonJobBuilder();
