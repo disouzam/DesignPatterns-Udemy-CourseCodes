@@ -1,7 +1,8 @@
-﻿namespace BuilderDesignPattern
-{
+﻿using System;
 
-    public class Demo
+namespace Coding.Exercise
+{
+    public class CodeBuilder
     {
 
     }
