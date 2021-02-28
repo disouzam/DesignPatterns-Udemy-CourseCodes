@@ -4,22 +4,28 @@ using System.Text;
 
 namespace Coding.Exercise
 {
-    public class CodeBuilder
+    public class Field
+    {
+        public string name, type;
+
+        public Field(string name, string type)
+        {
+            this.name = name;
+            this.type = type;
+        }
+    }
+
+    public class Code
     {
         public string classname;
         public int indentsize = 2;
         public List<Field> fields;
 
-        public class Field
-        {
-            public string name, type;
 
-            public Field(string name, string type)
-            {
-                this.name = name;
-                this.type = type;
-            }
-        }
+    }
+    public class CodeBuilder
+    {
+        private Code code;
 
         public CodeBuilder()
         {
@@ -28,18 +34,19 @@ namespace Coding.Exercise
 
         public CodeBuilder(string classname)
         {
-            this.classname = classname;
-            fields = new List<Field>();
+            code = new Code();
+            this.code.classname = classname;
+            this.code.fields = new List<Field>();
         }
 
         private string ToStringImpl(int indent)
         {
             var sb = new StringBuilder();
-            sb.AppendLine($"public class {classname}");
+            sb.AppendLine($"public class {this.code.classname}");
             sb.AppendLine("{");
-            foreach (var f in fields)
+            foreach (var f in this.code.fields)
             {
-                sb.Append(new string(' ', indentsize * (indent + 1)));
+                sb.Append(new string(' ', this.code.indentsize * (indent + 1)));
                 sb.Append($"public {f.type.ToLower()} {f.name};");
                 sb.Append("\n");
             }
@@ -54,7 +61,7 @@ namespace Coding.Exercise
 
         public CodeBuilder AddField(string name, string type)
         {
-            fields.Add(new Field(name, type));
+            this.code.fields.Add(new Field(name, type));
             return this;
         }
 
