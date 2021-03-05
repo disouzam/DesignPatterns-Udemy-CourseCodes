@@ -31,6 +31,11 @@ namespace Factories
         {
             return new Point(rho * Math.Cos(theta), rho * Math.Sin(theta));
         }
+
+        public override string ToString()
+        {
+            return $"{nameof(x)}:{x}, {nameof(y)}: {y}";
+        }
     }
 
     class Program
@@ -38,7 +43,7 @@ namespace Factories
         static void Main(string[] args)
         {
             var point = Point.NewPolarPoint(1, Angle.ToRadians(Math.PI / 2));
-            WriteLine(point);
+            Console.WriteLine(point);
         }
     }
 }
