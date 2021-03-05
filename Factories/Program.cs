@@ -13,13 +13,6 @@ namespace Factories
                 this.x = x;
                 this.y = y;
             }
-
-            public Point(double rho, double theta)
-            {
-                this.x = rho * Math.Cos(theta);
-                this.y = rho * Math.sin(theta); ;
-            }
-
         }
         static void Main(string[] args)
         {
