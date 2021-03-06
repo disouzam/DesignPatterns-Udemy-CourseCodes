@@ -137,18 +137,19 @@ namespace AsyncProgram
             DateTime initTime = DateTime.Now;
             Console.WriteLine(initTime);
 
+            Task<Egg> eggsTask = Egg.FryEggsAsync(2);
+            Task<Bacon> baconTask = Bacon.FryBaconAsync(3);
+            Task<Toast> toastTask = Toast.ToastBreadAsync(2);
+
             Coffee cup = Coffee.PourCoffeeAsync();
             Console.WriteLine("coffee is ready");
-
-            Task<Egg> eggsTask = Egg.FryEggsAsync(2);
+            
             Egg eggs = await eggsTask;
             Console.WriteLine("eggs are ready");
-
-            Task<Bacon> baconTask = Bacon.FryBaconAsync(3);
+            
             Bacon bacon = await baconTask;
             Console.WriteLine("bacon is ready");
-
-            Task<Toast> toastTask = Toast.ToastBreadAsync(2);
+            
             Toast toast = await toastTask;
             Toast.ApplyButter(toast);
             Toast.ApplyJam(toast);
