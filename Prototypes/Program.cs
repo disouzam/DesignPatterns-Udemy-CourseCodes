@@ -24,7 +24,7 @@ namespace Prototypes
 
         public object Clone()
         {
-            return new Person(Names, Address);
+            return new Person(Names, (Address)Address.Clone());
         }
 
         public override string ToString()
@@ -36,7 +36,7 @@ namespace Prototypes
         }
     }
 
-    public class Address
+    public class Address: ICloneable
     {
         public string StreetName;
         public int HouseNumber;
@@ -49,6 +49,11 @@ namespace Prototypes
             }
             StreetName = streetName;
             HouseNumber = houseNumber;
+        }
+
+        public object Clone()
+        {
+            return new Address(StreetName, HouseNumber);
         }
 
         public override string ToString()
