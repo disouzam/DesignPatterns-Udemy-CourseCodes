@@ -80,7 +80,7 @@ namespace AsyncProgram
 
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             DateTime initTime = DateTime.Now;
             Console.WriteLine(initTime);
@@ -111,3 +111,4 @@ namespace AsyncProgram
         }
     }
 }
+
