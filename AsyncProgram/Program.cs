@@ -137,18 +137,12 @@ namespace AsyncProgram
             DateTime initTime = DateTime.Now;
             Console.WriteLine(initTime);
 
+            Coffee cup = Coffee.PourCoffeeAsync();
+            Console.WriteLine("coffee is ready");
+
             Task<Egg> eggsTask = Egg.FryEggsAsync(2);
             Task<Bacon> baconTask = Bacon.FryBaconAsync(3);
             Task<Toast> toastTask = Toast.ToastBreadAsync(2);
-
-            Coffee cup = Coffee.PourCoffeeAsync();
-            Console.WriteLine("coffee is ready");
-            
-            Egg eggs = await eggsTask;
-            Console.WriteLine("eggs are ready");
-            
-            Bacon bacon = await baconTask;
-            Console.WriteLine("bacon is ready");
             
             Toast toast = await toastTask;
             Toast.ApplyButter(toast);
@@ -157,6 +151,13 @@ namespace AsyncProgram
 
             Juice oj = Juice.PourOJAsync();
             Console.WriteLine("Orange juice is ready");
+
+            Egg eggs = await eggsTask;
+            Console.WriteLine("eggs are ready");
+
+            Bacon bacon = await baconTask;
+            Console.WriteLine("bacon is ready");
+
             Console.WriteLine("Breakfast is ready!");
 
             DateTime finalTime = DateTime.Now;
